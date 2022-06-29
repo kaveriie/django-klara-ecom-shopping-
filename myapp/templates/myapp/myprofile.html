@@ -1,0 +1,340 @@
+{% load static %}
+<html lang="en">
+<head>
+<title>My Profile</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Wish shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{% static 'myapp/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/styles/cart.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/styles/cart_responsive.css' %}">
+<style>
+	.myclass
+	{
+		width: 100%;
+		height: 100%;
+	}
+	.avatar {
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+
+  }
+
+</style>
+</head>
+<body>
+
+<div class="super_container">
+	
+	<!-- Header -->
+
+	<header class="header">
+		<div class="header_inner d-flex flex-row align-items-center justify-content-start">
+			<div class="logo"><a href="{% url 'index' %}">Klara</a></div>
+			<nav class="main_nav">
+				<ul>
+					{% if cid %}
+					<li><a href="{% url 'index' %}">home</a></li>
+					<li><a href="{% url 'categories' %}">products</a></li>
+					<li><a href="{% url 'contact' %}">contact</a></li>
+					{% endif %}
+					{% if mid %}
+					<li><a href="{% url 'mindex' %}">home</a></li>
+					<li><a href="{% url 'allproducts' %}">products</a></li>
+					<li><a href="{% url 'allmessages' %}">messages</a></li>
+					<li><a href="{% url 'allsubscribers' %}">subscribers</a></li>
+					<li><a href="{% url 'allorders' %}">orders</a></li>
+					<li><a href="{% url 'viewreviews' %}">reviews</a></li>
+
+					{% endif %}
+				</ul>
+			</nav>
+			<div class="header_content ml-auto">
+				{% if cid %}
+				<div class="search header_search">
+					<form action="#">
+						<input type="search" class="search_input" required="required">
+						<button type="submit" id="search_button" class="search_button"><img src="{% static 'myapp/images/magnifying-glass.svg' %}" alt=""></button>
+					</form>
+				</div>
+				{% endif %}
+				<div class="shopping">
+					{% if uid %}
+					<a href="{% url 'myprofile' %}">
+						<img src="{{uid.profilepic.url}}" alt="Avatar" class="avatar"></a>
+						Welcome {{request.session.firstname}}, 
+					{% endif %}
+
+
+					{% if cid %}
+					<!-- Cart -->
+					<a href="{% url 'cart' %}">
+						<div class="cart">
+							<img src="{% static 'myapp/images/shopping-bag.svg' %}" alt="">
+							<div class="cart_num_container">
+								<div class="cart_num_inner">
+									<div class="cart_num">{{count}}</div>
+								</div>
+							</div>
+						</div>
+					</a>
+					<!-- Star -->
+					<a href="{% url 'wishlist' %}">
+						<div class="star">
+							<img src="{% static 'myapp/images/star.svg' %}" alt="">
+							<div class="star_num_container">
+								<div class="star_num_inner">
+									<div class="star_num">{{wcount}}</div>
+								</div>
+							</div>
+						</div>
+					</a>
+								<!-- Orders -->
+								<a href="{% url 'myorders' %}">
+									<div class="star">
+										<img src="{% static 'myapp/images/orders.png' %}" alt="">
+										<div class="star_num_container">
+											<div class="star_num_inner">
+												<div class="star_num">{{ocount}}</div>
+											</div>
+										</div>
+									</div>
+								</a>
+			
+
+
+					<!-- Avatar -->
+					<a href="{% url 'myprofile' %}">
+						<div class="avatar">
+							<img src="{% static 'myapp/images/avatar.svg' %}" alt="">
+						</div>
+					</a>
+					{% endif %}
+
+				</div>
+			</div>
+
+			<div class="burger_container d-flex flex-column align-items-center justify-content-around menu_mm"><div></div><div></div><div></div></div>
+		</div>
+	</header>
+
+	<!-- Menu -->
+
+	<div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+		<div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+		<div class="logo menu_mm"><a href="{% url 'categories' %}">Klara</a></div>
+		{% if cid %}
+		<div class="search">
+			<form action="#">
+				<input type="search" class="search_input menu_mm" required="required">
+				<button type="submit" id="search_button_menu" class="search_button menu_mm"><img class="menu_mm" src="{% static 'myapp/images/magnifying-glass.svg' %}" alt=""></button>
+			</form>
+		</div>
+		{% endif %}
+
+
+		<nav class="menu_nav">
+			<ul class="menu_mm">
+				<li class="menu_mm"><a href="{% url 'mindex' %}">home</a></li>
+				{% if mid %}
+				<li class="menu_mm"><a href="{% url 'addproduct' %}">add product</a></li>
+				<li class="menu_mm"><a href="{% url 'allproducts' %}">all products</a></li>
+				<li class="menu_mm"><a href="{% url 'allmessages' %}">messages</a></li>
+				<li class="menu_mm"><a href="{% url 'allsubscribers' %}">manage subscribers</a></li>
+				<li class="menu_mm"><a href="{% url 'allorders' %}">manage orders</a></li>
+				<li class="menu_mm"><a href="{% url 'viewreviews' %}">all reviews</a></li>
+                {% endif %}
+				<li class="menu_mm"><a href="{% url 'categories' %}">products</a></li>
+				<li class="menu_mm"><a href="{% url 'contact' %}">contact</a></li>
+				{% if uid %}
+				<li class="menu_mm"><a href="{% url 'logout' %}">logout</a></li>
+				{% else %}
+				<li class="menu_mm"><a href="{% url 'login' %}">login</a></li>
+				<li class="menu_mm"><a href="{% url 'register' %}">register</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+
+	<!-- Home -->
+
+	<div class="home">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'myapp/images/mads.jpg' %}" data-speed="0.8"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="home_container">
+						<div class="home_content">
+							<div class="home_title">My Profile</div>
+							<div class="breadcrumbs">
+								<ul>
+									<li><a href="{% url 'index' %}">Home</a></li>
+									<li>My Profile</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Cart -->
+    <br><br><br><br><br><br><br>
+	<div class="product">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+				</div>
+			</div>
+			<div class="row product_row">
+{% if cid %}
+				<!-- Product Image -->
+				<div class="col-lg-7">
+					<div class="product_image">
+						<div class="product_image_large"><img class="myclass" src="{{cid.user_id.profilepic.url}}" alt=""></div>
+						<div class="product_image_thumbnails d-flex flex-row align-items-start justify-content-start">
+							<div class="product_image_thumbnail" style="background-image:url({{cid.user_id.profilepic.url}})" data-image="{{cid.user_id.profilepic.url}}"></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Product Content -->
+				<div class="col-lg-5">
+					<div class="product_content">
+                        <div class="product_name"><b>My Information:</b></div>
+						<div class="product_name">{{cid.firstname}}</div>
+						<div class="product_price">{{cid.user_id.email}}</div>
+						<div class="product_name"><i>{{uid.role}}</i></div>
+
+                        <br><br>
+                        <br>
+                        <div class="product_name"><b>Edit Profile:</b></div>
+
+                        <form action="{% url 'editprofile' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{cid.user_id.id}}">
+                            First Name:
+                            <input type="text" name="firstname" class="form-control" value="{{cid.firstname}}"><br>
+                            Email:
+                            <input type="text" name="email" class="form-control" value="{{cid.user_id.email}}"><br>
+                            Password:
+                            <input type="text" name="password" class="form-control" value="{{cid.user_id.password}}"><br>
+                            Profile Picture:
+                            <input type="file" name="profilepic" accept="image/*"><br><br>
+                            <button class="button cart_button" type="submit" value="editprofile">Edit Profile</button>
+                        </form>
+    
+						</div>
+					</div>
+				</div>
+			</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+{% if mid %}
+				<!-- Product Image -->
+				<div class="col-lg-7">
+					<div class="product_image">
+						<div class="product_image_large"><img class="myclass" src="{{mid.user_id.profilepic.url}}" alt=""></div>
+						<div class="product_image_thumbnails d-flex flex-row align-items-start justify-content-start">
+							<div class="product_image_thumbnail" style="background-image:url({{mid.user_id.profilepic.url}})" data-image="{{mid.user_id.profilepic.url}}"></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Product Content -->
+				<div class="col-lg-5">
+					<div class="product_content">
+                        <div class="product_name"><b>My Information:</b></div>
+						<div class="product_name">{{mid.firstname}}</div>
+                        <div class="product_price">{{mid.user_id.email}}</div>
+						<div class="product_name"><i>{{uid.role}}</i></div>
+						<br><br>
+                        <br>
+                        <div class="product_name"><b>Edit Profile:</b></div>
+
+                        <form action="{% url 'editprofile' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{mid.user_id.id}}">
+                            First Name:
+                            <input type="text" name="firstname" class="form-control" value="{{mid.firstname}}"><br>
+                            Email:
+                            <input type="text" name="email" class="form-control" value="{{mid.user_id.email}}"><br>
+                            Password:
+                            <input type="text" name="password" class="form-control" value="{{mid.user_id.password}}"><br>
+                            Profile Picture:
+                            <input type="file" name="profilepic" accept="image/*"><br><br>
+                            <button class="button cart_button" type="submit" value="editprofile">Edit Profile</button>
+                        </form>
+    
+						</div>
+					</div>
+				</div>
+			</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+	<!-- Footer -->
+
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="footer_logo"><a href="{% url 'index' %}">Klara</a></div>
+					{% if cid %}
+					<nav class="footer_nav">
+						<ul>
+							<li><a href="{% url 'index' %}">home</a></li>
+							<li><a href="{% url 'categories' %}">products</a></li>
+							<li><a href="{% url 'contact' %}">contact</a></li>
+						</ul>
+							</nav>
+							{% endif %}
+					<div class="footer_social">
+						<ul>
+							<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-reddit-alien" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						</ul>
+					</div>
+					<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+
+<script src="{% static 'myapp/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'myapp/styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'myapp/styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'myapp/plugins/easing/easing.js' %}"></script>
+<script src="{% static 'myapp/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'myapp/js/cart_custom.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+{% load static %}
+
+
+<html lang="en">
+<head>
+<title>Klara</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Wish shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{% static 'myapp/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link href="{% static 'myapp/plugins/colorbox/colorbox.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/styles/main_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'myapp/styles/responsive.css' %}">
+<style>
+.avatar {
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+
+  }
+
+</style>
+
+</head>
+<body>
+
+<div class="super_container">
+	
+	<!-- Header -->
+
+	<header class="header">
+		<div class="header_inner d-flex flex-row align-items-center justify-content-start">
+			<div class="logo"><a href="{% url 'index' %}">Klara</a></div>
+			<nav class="main_nav">
+				<ul>
+					<li><a href="{% url 'mindex' %}">home</a></li>
+					<li><a href="{% url 'allproducts' %}">products</a></li>
+					<li><a href="{% url 'allmessages' %}">messages</a></li>
+					<li><a href="{% url 'allsubscribers' %}">subscribers</a></li>
+					<li><a href="{% url 'viewreviews' %}">reviews</a></li>
+					<li><a href="{% url 'allorders' %}">orders</a></li>
+					<li><a href="{% url 'allcoupon' %}">coupons</a></li>
+
+                </ul>
+			</nav>
+			<div class="header_content ml-auto">
+				<div class="shopping">
+					{% if uid %}
+					<a href="{% url 'myprofile' %}">
+						<img src="{{uid.profilepic.url}}" alt="Avatar" class="avatar"></a>
+						Welcome {{request.session.firstname}}, 
+					
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="burger_container d-flex flex-column align-items-center justify-content-around menu_mm"><div></div><div></div><div></div></div>
+		</div>
+	</header>
+
+	<!-- Menu -->
+
+	<div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+		<div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+		<div class="logo menu_mm"><a href="{% url 'index' %}">Klara</a></div>
+		<nav class="menu_nav">
+			<ul class="menu_mm">
+				<li class="menu_mm"><a href="{% url 'mindex' %}">home</a></li>
+				{% if mid %}
+				<li class="menu_mm"><a href="{% url 'addproduct' %}">add product</a></li>
+				<li class="menu_mm"><a href="{% url 'allproducts' %}">all products</a></li>
+				<li class="menu_mm"><a href="{% url 'allmessages' %}">messages</a></li>
+				<li class="menu_mm"><a href="{% url 'addcoupon' %}">add coupon</a></li>
+				<li class="menu_mm"><a href="{% url 'allcoupon' %}">manage coupons</a></li>
+				<li class="menu_mm"><a href="{% url 'allsubscribers' %}">manage subscribers</a></li>
+				<li class="menu_mm"><a href="{% url 'allorders' %}">manage orders</a></li>
+				<li class="menu_mm"><a href="{% url 'viewreviews' %}">reviews</a></li>
+				{% endif %}
+				{% if uid %}
+				<li class="menu_mm"><a href="{% url 'logout' %}">logout</a></li>
+				{% else %}
+				<li class="menu_mm"><a href="{% url 'login' %}">login</a></li>
+				<li class="menu_mm"><a href="{% url 'register' %}">register</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+
+	<!-- Home -->
+
+	<div class="home">
+		
+		<!-- Home Slider -->
+
+		<div class="home_slider_container">
+			<div class="owl-carousel owl-theme home_slider">
+				
+				<!-- Home Slider Item -->
+				<div class="owl-item">
+					<div class="home_slider_background" style="background-image:url({% static 'myapp/images/blow.jpg' %})"></div>
+					<div class="home_slider_content">
+						<div class="home_slider_content_inner">
+							<div class="home_slider_subtitle">Promo Prices</div>
+							<div class="home_slider_title">New Collection</div>
+						</div>	
+					</div>
+				</div>
+
+				<!-- Home Slider Item -->
+				<div class="owl-item">
+					<div class="home_slider_background" style="background-image:url({% static 'myapp/images/ky.jpg' %})"></div>
+					<div class="home_slider_content">
+						<div class="home_slider_content_inner">
+							<div class="home_slider_subtitle">Promo Prices</div>
+							<div class="home_slider_title">New Collection</div>
+						</div>	
+					</div>
+				</div>
+
+				<!-- Home Slider Item -->
+				<div class="owl-item">
+					<div class="home_slider_background" style="background-image:url({% static 'myapp/images/cat.jpg' %})"></div>
+					<div class="home_slider_content">
+						<div class="home_slider_content_inner">
+							<div class="home_slider_subtitle">Promo Prices</div>
+							<div class="home_slider_title">New Collection</div>
+						</div>	
+					</div>
+				</div>
+
+			</div>
+			
+			<!-- Home Slider Nav -->
+
+			<div class="home_slider_next d-flex flex-column align-items-center justify-content-center"><img src="{% static 'myapp/images/arrow_r.png' %}" alt=""></div>
+
+			<!-- Home Slider Dots -->
+
+			<div class="home_slider_dots_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="home_slider_dots">
+								<ul id="home_slider_custom_dots" class="home_slider_custom_dots">
+									<li class="home_slider_custom_dot active">01.<div></div></li>
+									<li class="home_slider_custom_dot">02.<div></div></li>
+									<li class="home_slider_custom_dot">03.<div></div></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>		
+			</div>
+		</div>
+	</div>
+
+	<!-- Promo -->
+
+
+	<!-- Gallery -->
+
+	<div class="gallery">
+		<div class="gallery_image" style="background-image:url({% static 'myapp/images/gallery.jpg' %})"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="gallery_title text-center">
+						<ul>
+							<li><a href="#">#klara</a></li>
+							<li><a href="#">#klarainstagram</a></li>
+							<li><a href="#">#klaragirl</a></li>
+						</ul>
+					</div>
+					<div class="gallery_text text-center">*Check out the latest trends and images from our Instagram.</div>
+				</div>
+			</div>
+		</div>	
+		<div class="gallery_slider_container">
+			
+			<!-- Gallery Slider -->
+			<div class="owl-carousel owl-theme gallery_slider">
+				
+				<!-- Gallery Item -->
+				<div class="owl-item gallery_item">
+					<a class="colorbox" href="{% static 'myapp/images/gallery_1.jpg' %}">
+						<img src="{% static 'myapp/images/gallery_1.jpg' %}" alt="">
+					</a>
+				</div>
+
+				<!-- Gallery Item -->
+				<div class="owl-item gallery_item">
+					<a class="colorbox" href="{% static 'myapp/images/gallery_2.jpg' %}">
+						<img src="{% static 'myapp/images/gallery_2.jpg' %}" alt="">
+					</a>
+				</div>
+
+				<!-- Gallery Item -->
+				<div class="owl-item gallery_item">
+					<a class="colorbox" href="{% static 'myapp/images/gallery_3.jpg' %}">
+						<img src="{% static 'myapp/images/gallery_3.jpg' %}" alt="">
+					</a>
+				</div>
+
+				<!-- Gallery Item -->
+				<div class="owl-item gallery_item">
+					<a class="colorbox" href="{% static 'myapp/images/gallery_4.jpg' %}">
+						<img src="{% static 'myapp/images/gallery_4.jpg' %}" alt="">
+					</a>
+				</div>
+
+				<!-- Gallery Item -->
+				<div class="owl-item gallery_item">
+					<a class="colorbox" href="{% static 'myapp/images/gallery_5.jpg' %}">
+						<img src="{% static 'myapp/images/gallery_5.jpg' %}" alt="">
+					</a>
+				</div>
+
+				<!-- Gallery Item -->
+				<div class="owl-item gallery_item">
+					<a class="colorbox" href="{% static 'myapp/images/gallery_6.jpg' %}">
+						<img src="{% static 'myapp/images/gallery_6.jpg' %}" alt="">
+					</a>
+				</div>
+
+			</div>
+		</div>	
+	</div>
+
+	<!-- Testimonials -->
+
+	<div class="testimonials">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="section_title_container text-center">
+						<div class="section_subtitle">latest</div>
+						<div class="section_title">reviews</div>
+					</div>
+				</div>
+			</div>
+			<div class="row test_slider_container">
+				<div class="col">
+
+					<!-- Testimonials Slider -->
+					<div class="owl-carousel owl-theme test_slider text-center">
+						{% for i in newr_id %}
+
+						<!-- Testimonial Item -->
+						<div class="owl-item">
+							<div class="test_text">{{i.reviewtext}}</div>
+							<div class="test_content">
+								<div class="test_image"><img src="{{i.c_id.user_id.profilepic.url}}" alt=""></div>
+								<div class="test_name">{{i.c_id.firstname}}</div>
+								<div class="test_title">{{i.p_id.productname}}</div>
+							</div>
+						</div>
+						{% endfor %}
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Newsletter -->
+
+	<!-- Footer -->
+
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="footer_logo"><a href="#">Klara</a></div>
+					<div class="footer_social">
+						<ul>
+							<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-reddit-alien" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						</ul>
+					</div>
+					<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+
+<script src="{% static 'myapp/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'myapp/styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'myapp/styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'myapp/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'myapp/plugins/easing/easing.js' %}"></script>
+<script src="{% static 'myapp/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'myapp/plugins/colorbox/jquery.colorbox-min.js' %}"></script>
+<script src="{% static 'myapp/js/custom.js' %}"></script>
+</body>
+</html>
